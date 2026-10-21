@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { carregarSessao } from "@/lib/permissoes/sessao";
 import { adicionarTarefa } from "./actions";
 import { StatusSelect } from "./status-select";
+import { EditarResponsavelPrazo } from "./editar-campos";
 
 function formatarData(iso: string | null) {
   if (!iso) return "—";
@@ -114,10 +115,22 @@ export default async function PaginaTarefas({
                       <td style={{ textDecoration: t.status === "concluida" ? "line-through" : undefined }}>
                         {t.tarefa}
                       </td>
-                      <td className="ocultar-mobile muted">{t.responsavel_texto ?? "—"}</td>
-                      <td style={{ color: atrasada ? "var(--bad)" : undefined, fontWeight: atrasada ? 600 : undefined }}>
-                        {formatarData(t.prazo)}
-                      </td>
+                      {podeEditar ? (
+                        <td colSpan={2}>
+                          <EditarResponsavelPrazo
+                            id={t.id}
+                            responsavelInicial={t.responsavel_texto}
+                            prazoInicial={t.prazo}
+                          />
+                        </td>
+                      ) : (
+                        <>
+                          <td className="ocultar-mobile muted">{t.responsavel_texto ?? "—"}</td>
+                          <td style={{ color: atrasada ? "var(--bad)" : undefined, fontWeight: atrasada ? 600 : undefined }}>
+                            {formatarData(t.prazo)}
+                          </td>
+                        </>
+                      )}
                       <td>
                         {podeEditar ? (
                           <StatusSelect id={t.id} statusAtual={t.status} />

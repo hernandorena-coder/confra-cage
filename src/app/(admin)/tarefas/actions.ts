@@ -38,3 +38,15 @@ export async function atualizarStatusTarefa(formData: FormData) {
   await supabase.from("tarefas").update({ status }).eq("id", id);
   revalidatePath("/tarefas");
 }
+
+export async function atualizarResponsavelPrazo(formData: FormData) {
+  const id = String(formData.get("id") ?? "");
+  if (!id) return;
+
+  const responsavelTexto = String(formData.get("responsavelTexto") ?? "").trim() || null;
+  const prazo = String(formData.get("prazo") ?? "").trim() || null;
+
+  const supabase = await createClient();
+  await supabase.from("tarefas").update({ responsavel_texto: responsavelTexto, prazo }).eq("id", id);
+  revalidatePath("/tarefas");
+}
