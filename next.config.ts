@@ -1,9 +1,8 @@
 import type { NextConfig } from "next";
 
-const nextConfig: NextConfig = {
-  /* config options here */
-  cacheComponents: true,
-  partialPrefetching: true,
-};
+// cacheComponents fica desligado: todas as páginas dependem de sessão/RLS
+// (cookies, Supabase), então são sempre dinâmicas — não há nada útil a
+// pré-renderizar ou cachear por usuário.
+const nextConfig: NextConfig = {};
 
 export default nextConfig;

@@ -39,3 +39,13 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# dados pessoais/sensíveis — nunca devem entrar no repositório
+# (dados reais ficam fora deste projeto, em pacote/data/; aqui só fixtures fictícias)
+/comprovantes/
+/supabase/seed/dados_reais*
+*.csv
+!/supabase/seed/pessoas_ficticias.csv
+
+# logs locais de desenvolvimento
+dev-server.log
